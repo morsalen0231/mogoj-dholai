@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+:root {
+  --background: #071018;
+  --foreground: #f8fafc;
+  --panel-top: rgba(13, 22, 32, 0.8);
+  --panel-bottom: rgba(11, 18, 30, 0.62);
+  --glow-a: rgba(255, 122, 24, 0.22);
+  --glow-b: rgba(26, 214, 184, 0.2);
+  --glow-c: rgba(255, 209, 102, 0.14);
+  --ambient-x: 16%;
+  --ambient-y: 18%;
+  --ambient-mx: 78%;
+  --ambient-my: 72%;
+  --ambient-scale: 1;
+  --ambient-opacity: 0.2;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at var(--ambient-x) var(--ambient-y), rgba(255, 136, 48, 0.11), transparent 22%),
+    radial-gradient(circle at var(--ambient-mx) var(--ambient-my), rgba(36, 184, 151, 0.1), transparent 24%),
+    linear-gradient(125deg, rgba(255, 122, 24, 0.05), transparent 28%),
+    linear-gradient(220deg, rgba(26, 214, 184, 0.05), transparent 30%);
+  transform: scale(var(--ambient-scale));
+  opacity: var(--ambient-opacity);
+  transition: opacity 240ms linear;
+  pointer-events: none;
+  z-index: -3;
+  will-change: transform, opacity, background;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), sans-serif;
+  letter-spacing: -0.03em;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+.glass-panel {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(circle at top left, rgba(255, 153, 51, 0.12), transparent 28%),
+    radial-gradient(circle at top right, rgba(55, 215, 180, 0.12), transparent 24%),
+    linear-gradient(180deg, var(--panel-top), var(--panel-bottom));
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 60px rgba(2, 6, 23, 0.35);
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 24px 70px rgba(2, 6, 23, 0.4);
+}
+
+.site-chroma {
+  position: relative;
+  background:
+    radial-gradient(circle at 12% 18%, var(--glow-a), transparent 22%),
+    radial-gradient(circle at 82% 14%, var(--glow-b), transparent 20%),
+    radial-gradient(circle at 72% 74%, var(--glow-c), transparent 18%),
+    linear-gradient(180deg, #071018 0%, #09151f 35%, #0c1821 100%);
+}
+
+.site-chroma::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  background:
+    radial-gradient(circle at calc(var(--ambient-x) + 6%) calc(var(--ambient-y) + 4%), rgba(255, 214, 153, 0.11), transparent 18%),
+    radial-gradient(circle at calc(var(--ambient-mx) - 5%) calc(var(--ambient-my) - 4%), rgba(118, 255, 184, 0.1), transparent 20%);
+  opacity: calc(var(--ambient-opacity) * 0.92);
+  transform: scale(calc(var(--ambient-scale) * 1.015));
+  will-change: transform, opacity, background;
+}
+
+.cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 9998;
+  border: 1.5px solid rgba(118, 255, 184, 0.92);
+  background: radial-gradient(circle at center, rgba(22, 163, 74, 0.12), rgba(22, 163, 74, 0.04) 55%, transparent 56%);
+  box-shadow:
+    0 0 0 2px rgba(22, 163, 74, 0.18),
+    0 0 18px rgba(22, 163, 74, 0.32),
+    0 0 36px rgba(20, 83, 45, 0.34),
+    inset 0 0 14px rgba(118, 255, 184, 0.08);
+  transition: transform 120ms ease-out, opacity 180ms ease-out, border-color 180ms ease-out;
+}
+
+.cursor-core {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 9999;
+  background: rgba(214, 255, 230, 0.98);
+  box-shadow:
+    0 0 12px rgba(118, 255, 184, 0.65),
+    0 0 22px rgba(22, 163, 74, 0.42);
+  transition: transform 60ms ease-out, opacity 180ms ease-out;
+}
+
+summary {
+  cursor: pointer;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.28);
+}
+
+.floaty {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-ring,
+  .cursor-core {
+    display: none;
+  }
+}

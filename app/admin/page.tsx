@@ -1,0 +1,10 @@
+import { AdminPanel } from "@/components/admin-panel";
+import { SiteShell } from "@/components/site-shell";
+
+export default function AdminPage() {
+  return (
+    <SiteShell eyebrow="" title="" description="">
+      <AdminPanel />
+    </SiteShell>
+  );
+}

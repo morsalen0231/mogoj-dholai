@@ -1,0 +1,17 @@
+name: Auto Trending Posts
+
+on:
+  schedule:
+    - cron: "0 */4 * * *"
+  workflow_dispatch:
+
+jobs:
+  auto-post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger auto trending post generation
+        run: |
+          curl -X POST "${{ secrets.SITE_URL }}/api/auto-generate-trending" \
+            -H "Content-Type: application/json" \
+            -H "x-auto-post-secret: ${{ secrets.AUTO_POST_SECRET }}" \
+            -d '{"geo":"US","limit":2,"maxDaily":10}'
