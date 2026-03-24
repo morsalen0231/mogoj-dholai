@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SiteShell } from "@/components/site-shell";
 import { getSupabaseBrowserClient } from "@/lib/supabase";
 
-export default function AuthCallbackPage() {
+function AuthCallbackPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -79,5 +79,13 @@ export default function AuthCallbackPage() {
         mismatch হলেই callback-এ `code` আসে না।
       </div>
     </SiteShell>
+  );
+}
+
+export default function AuthCallbackPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AuthCallbackPageContent />
+    </Suspense>
   );
 }

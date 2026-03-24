@@ -68,11 +68,12 @@ export function NotificationsPanel() {
     if (!user) {
       return;
     }
+    const currentUser = user;
 
     let active = true;
 
     async function load() {
-      const { data, error: fetchError } = await fetchPostNotifications(user.id, 50);
+      const { data, error: fetchError } = await fetchPostNotifications(currentUser.id, 50);
       if (!active) {
         return;
       }
@@ -88,7 +89,7 @@ export function NotificationsPanel() {
 
       const hasUnread = (data ?? []).some((item) => item.read_at === null);
       if (hasUnread) {
-        await markNotificationsAsRead(user.id);
+        await markNotificationsAsRead(currentUser.id);
         if (!active) {
           return;
         }

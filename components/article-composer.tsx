@@ -64,11 +64,12 @@ export function ArticleComposer() {
 
   useEffect(() => {
     if (!user) return;
+    const currentUser = user;
 
     let active = true;
 
     async function loadOwnArticles() {
-      const { data, error: fetchError } = await fetchOwnArticleRecords(user.id);
+      const { data, error: fetchError } = await fetchOwnArticleRecords(currentUser.id);
       if (!active) return;
 
       if (fetchError) {
@@ -144,6 +145,7 @@ export function ArticleComposer() {
 
   async function handleSubmit() {
     if (!user) return;
+    const currentUser = user;
 
     setBusy(true);
     setError(null);
@@ -151,7 +153,7 @@ export function ArticleComposer() {
 
     const payload = {
       id: `${form.category_id}-${Date.now()}`,
-      profile_id: user.id,
+      profile_id: currentUser.id,
       slug: derivedSlug,
       category_id: form.category_id as CategoryId,
       title_bn: form.title_bn.trim(),
@@ -178,7 +180,7 @@ export function ArticleComposer() {
       return;
     }
 
-    const { data, error: fetchError } = await fetchOwnArticleRecords(user.id);
+    const { data, error: fetchError } = await fetchOwnArticleRecords(currentUser.id);
     if (fetchError) {
       setError(fetchError.message);
     } else {

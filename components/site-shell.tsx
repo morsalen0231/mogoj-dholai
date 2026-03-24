@@ -70,7 +70,7 @@ export function SiteShell({
   const visibleGroups = navGroups
     .map((group) => ({
       ...group,
-      items: group.items.filter((item) => !item.adminOnly || role === "admin"),
+      items: group.items.filter((item) => !("adminOnly" in item) || !item.adminOnly || role === "admin"),
     }))
     .filter((group) => group.items.length > 0);
 
