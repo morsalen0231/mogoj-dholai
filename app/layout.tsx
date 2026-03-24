@@ -1,19 +1,7 @@
 import type { Metadata } from "next";
-import { Hind_Siliguri, Space_Grotesk } from "next/font/google";
 import { AuthProvider } from "@/components/auth-provider";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
-
-const headingFont = Space_Grotesk({
-  variable: "--font-heading",
-  subsets: ["latin"],
-});
-
-const bodyFont = Hind_Siliguri({
-  variable: "--font-body",
-  subsets: ["bengali", "latin"],
-  weight: ["400", "500", "600", "700"],
-});
 
 const siteUrl = getSiteUrl();
 
@@ -65,7 +53,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="bn" suppressHydrationWarning>
-      <body className={`${headingFont.variable} ${bodyFont.variable} antialiased`}>
+      <body className="antialiased">
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

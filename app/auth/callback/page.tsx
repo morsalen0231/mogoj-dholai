@@ -19,6 +19,7 @@ export default function AuthCallbackPage() {
       router.replace("/login?error=Supabase config পাওয়া যায়নি।");
       return;
     }
+    const client = supabase;
 
     if (error) {
       router.replace(`/login?error=${encodeURIComponent(errorDescription || error)}`);
@@ -29,7 +30,7 @@ export default function AuthCallbackPage() {
 
     async function finishOAuthLogin() {
       if (!code) {
-        const { data } = await supabase.auth.getSession();
+        const { data } = await client.auth.getSession();
 
         if (cancelled) {
           return;
@@ -49,7 +50,7 @@ export default function AuthCallbackPage() {
         return;
       }
 
-      const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+      const { error: exchangeError } = await client.auth.exchangeCodeForSession(code);
 
       if (cancelled) {
         return;

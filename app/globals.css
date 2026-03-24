@@ -3,6 +3,8 @@
 :root {
   --background: #071018;
   --foreground: #f8fafc;
+  --font-body: "Noto Sans Bengali", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-heading: "Avenir Next", "Trebuchet MS", "Segoe UI", Arial, sans-serif;
   --panel-top: rgba(13, 22, 32, 0.8);
   --panel-bottom: rgba(11, 18, 30, 0.62);
   --glow-a: rgba(255, 122, 24, 0.22);
